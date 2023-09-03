@@ -6,7 +6,8 @@ import Footer from './components/Footer';
 function App() {
   const [games, setGame] = useState([]);
   const [search, setSearch] = useState('');
-  const [query, setQuery] = useState('paneer');
+  const [query, setQuery] = useState('');
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -41,7 +42,7 @@ function App() {
         <input
           className="w-1/4 p-2 border rounded-lg"
           type="text"
-          placeholder="What's on your mind today?"
+          placeholder="Search for a game"
           value={search}
           onChange={updateSearch}
         />
