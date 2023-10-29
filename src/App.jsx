@@ -1,23 +1,24 @@
 import { useState } from 'react';
 import { GameCard, Title, Footer } from './components';
 
-function App() {
+export default function App() {
   const [query, setQuery] = useState('');
   const [filteredGames, setFilteredGames] = useState([]);
   const [notFound, setNotFound] = useState(false);
 
   const [cachedGames, setCachedGames] = useState([]);
 
-  async function searchGames(e) {
+  const searchGames = async (e) => {
     e.preventDefault();
 
     if (query === '') {
+      alert("not funny, didn't laugh");
       return;
     }
 
     if (cachedGames.length > 0) {
       // console.log('cache hit');
-      const filteredResults = cachedGames.filter(result => result.name.toLowerCase().includes(query.toLowerCase()));
+      const filteredResults = cachedGames.filter((result) => result.name.toLowerCase().includes(query.toLowerCase()));
 
       if (filteredResults.length > 0) {
         setFilteredGames(filteredResults);
@@ -38,7 +39,7 @@ function App() {
 
       setCachedGames(results);
 
-      const filteredResults = results.filter(result => result.name.toLowerCase().includes(query.toLowerCase()));
+      const filteredResults = results.filter((result) => result.name.toLowerCase().includes(query.toLowerCase()));
 
       if (filteredResults.length > 0) {
         setFilteredGames(filteredResults);
@@ -47,6 +48,7 @@ function App() {
         setFilteredGames([]);
         setNotFound(true);
       }
+
     } catch (error) {
       console.log(error);
     } finally {
@@ -60,10 +62,12 @@ function App() {
 
       <form className="w-1/3 mx-auto" onSubmit={searchGames}>
         <div className="flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
-          <div className="grid place-items-center h-full w-12 text-gray-300">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+          <div className="mx-3 flex justify-center items-center h-full w-12 text-gray-300">
+            <div onClick={searchGames} className="peer cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
           </div>
 
           <input
@@ -100,8 +104,6 @@ function App() {
     </div>
   );
 }
-
-export default App;
 
 {/* <form className="p-4 flex justify-center items-center" onSubmit={searchGames}>
 <input
