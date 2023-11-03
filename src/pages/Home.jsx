@@ -6,10 +6,10 @@ export default function Home() {
     const [query, setQuery] = useState('');
     const [filteredGames, setFilteredGames] = useState([]);
     const [notFound, setNotFound] = useState(false);
-    const [cachedGames, setCachedGames] = useState([]);
+    // const [cachedGames, setCachedGames] = useState([]);
 
     // mock
-    // let cachedGames = MockResponse.data;
+    let cachedGames = MockResponse.data;
 
     const searchGames = async (e) => {
         e.preventDefault();

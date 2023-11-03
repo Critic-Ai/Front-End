@@ -1,9 +1,16 @@
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 export default function GameView() {
     const location = useLocation();
 
     const { name, rating, cover } = location.state;
+
+    const [llmresponse, setllmresponse] = useState('asdasdasdasd');
+
+    const handlellmresponseChange = (e) => {
+        setllmresponse(e.target.value);
+    };
 
     return (
         <div className="flex flex-col h-screen">
@@ -24,7 +31,9 @@ export default function GameView() {
                 <textarea
                     className="w-2/3 h-24 p-2 border rounded focus:outline-none focus:border-blue-500 desc"
                     placeholder="Generated review"
-                ></textarea>
+                    value={llmresponse}
+                    onChange={handlellmresponseChange}
+                />
             </div>
         </div>
     );
