@@ -39,7 +39,7 @@ export default function Home() {
             const results = data.data;
             // console.log('cache miss');
 
-            setCachedGames(results);
+            // setCachedGames(results);
 
             const filteredResults = results.filter((result) => result.name.toLowerCase().includes(query.toLowerCase()));
 
