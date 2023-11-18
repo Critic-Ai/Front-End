@@ -8,6 +8,7 @@ export default function GameView() {
 
     const [response, setResponse] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isClicked, setIsClicked] = useState(false);
 
     const formatResponse = (text) => {
         return text.replace(/\n/g, '<br>');
@@ -18,6 +19,7 @@ export default function GameView() {
     const handleSubmit = async () => {
 
         if (isSubmitting) return;
+        setIsClicked(true);
 
         setResponse('');
 
@@ -76,27 +78,33 @@ export default function GameView() {
     };
 
     return (
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-screen bg-gray-100">
             <div className="flex justify-center items-start mt-4">
-                <div className="w-1/5 mr-20">
+                <div className="w-1/5 mr-6">
                     <img
-                        className="w-full h-auto im"
+                        className="w-full h-auto rounded-lg"
                         src={cover}
-                        alt="dummy image"
+                        alt="Game Cover"
+
                     />
                 </div>
+
                 <div className="flex flex-col">
-                    <h1 className="mb-2 title">{name}</h1>
-                    <h2 className="mb-2 rating">Rating: {rating}</h2>
+                    <h1 className="text-2xl font-semibold mb-2">{name}</h1>
+                    <h2 className="text-lg text-gray-700 mb-2">Rating: {rating}</h2>
+                    {!isClicked ? (
+                        <button
+                            className="mt-3 px-4 py-2 bg-blue-500 rounded-lg text-white hover:bg-blue-700 transition-all duration-300 hover:cursor-pointer"
+                            onClick={handleSubmit}
+                        >
+                            Get Review from LLM
+                        </button>
+                    ) : (
+                        <div className="mt-3 px-4 py-2 bg-blue-500 rounded-lg text-white animate-pulse">
+                            Generating review...
+                        </div>
+                    )}
                 </div>
-            </div>
-            <div className="flex flex-col items-center">
-                <button
-                    className="mt-4 p-2 w-1/4 bg-blue-500 rounded-lg text-white hover:bg-blue-700 transition-all duration-300"
-                    onClick={handleSubmit}
-                >
-                    Get Review from LLM
-                </button>
             </div>
 
             {/* <div className="flex flex-col items-center mt-auto mb-40">
@@ -110,13 +118,10 @@ export default function GameView() {
 
             {
                 response && (
-                    <div
-                        id="response-container"
-                        className="p-4 w-2/3 flex flex-col mx-auto m-5 bg-black rounded-lg shadow-md"
-                    >
-                        <div className="p-3 text-center text-green-500 font-bold text-xl bg-slate-">Response</div>
+                    <div className="w-2/3 mx-auto mt-4 p-4 bg-white rounded-lg shadow-md">
+                        <div className="text-center text-green-500 font-bold text-xl py-2 bg-gray-200">Response</div>
                         <div
-                            className="text-left text-green-500"
+                            className="text-left text-green-500 p-4"
                             dangerouslySetInnerHTML={{ __html: formatResponse(response) + '<span id="cursor"> ▊</span>' }}
                         ></div>
                     </div>
