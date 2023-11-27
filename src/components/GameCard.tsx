@@ -1,10 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 
-export default function GameCard({ name, rating, cover, notFound }) {
+type GameCardProps = {
+    name: string;
+    rating: string;
+    cover: string;
+    notFound?: boolean;
+};
+
+export default function GameCard({ name, rating, cover, notFound = false }: GameCardProps) {
     const navigate = useNavigate();
 
     const gotoGame = () => {
-        const sanitizedName = name.replaceAll(' ', '-');
+        const sanitizedName = name.replace(/\s/g, '-');
 
         navigate(`/games/${sanitizedName}`, { state: { name, rating, cover } });
     }

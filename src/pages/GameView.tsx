@@ -10,7 +10,7 @@ export default function GameView() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isClicked, setIsClicked] = useState(false);
 
-    const formatResponse = (text) => {
+    const formatResponse = (text: string) => {
         return text.replace(/\n/g, '<br>');
     };
 
