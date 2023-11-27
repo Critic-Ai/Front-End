@@ -6,10 +6,10 @@ export default function Home() {
     const [query, setQuery] = useState('');
     const [filteredGames, setFilteredGames] = useState([]);
     const [notFound, setNotFound] = useState(false);
-    // const [cachedGames, setCachedGames] = useState([]);
+    // const [cachedGames, setCachedGames] = useState([]); // uncomment for api
 
     // mock
-    let cachedGames = MockResponse.data;
+    let cachedGames = MockResponse.data; // comment out for api
 
     const searchGames = async (e) => {
         e.preventDefault();
@@ -39,7 +39,7 @@ export default function Home() {
             const results = data.data;
             // console.log('cache miss');
 
-            // setCachedGames(results);
+            // setCachedGames(results); // uncomment for api
 
             const filteredResults = results.filter((result) => result.name.toLowerCase().includes(query.toLowerCase()));
 
