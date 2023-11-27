@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import { GameCard, Title, Footer } from '../components';
 import MockResponse from '../test_assets/response.json';
+import { Game } from '../utils/types';
 
 export default function Home() {
     const [query, setQuery] = useState('');
-    const [filteredGames, setFilteredGames] = useState([]);
+    const [filteredGames, setFilteredGames] = useState<Game[] | []>([]);
     const [notFound, setNotFound] = useState(false);
     // const [cachedGames, setCachedGames] = useState([]); // uncomment for api
 
     // mock
     let cachedGames = MockResponse.data; // comment out for api
 
-    const searchGames = async (e) => {
+    const searchGames = async (e: any) => {
         e.preventDefault();
 
         if (query === '') {
@@ -41,7 +42,7 @@ export default function Home() {
 
             // setCachedGames(results); // uncomment for api
 
-            const filteredResults = results.filter((result) => result.name.toLowerCase().includes(query.toLowerCase()));
+            const filteredResults = results.filter((result: Game) => result.name.toLowerCase().includes(query.toLowerCase()));
 
             if (filteredResults.length > 0) {
                 setFilteredGames(filteredResults);
@@ -97,9 +98,9 @@ export default function Home() {
                     <GameCard
                         key={69}
                         name={'Game not found'}
-                        rating={69}
+                        rating={'69'}
                         cover={"https://i.kym-cdn.com/entries/icons/original/000/041/255/sittingwolfcontemplating.jpg"}
-                        notFound={true}
+                        notFound
                     />
                 ) : null}
             </div>
