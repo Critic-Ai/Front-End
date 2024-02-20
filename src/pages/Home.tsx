@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { GameCard, Title, Footer } from '../components';
 import MockResponse from '../test_assets/response.json';
 import { Game } from '../utils/types';
+import { GET_GAMES_ENDPOINT } from '../utils/constants';
 
 export default function Home() {
     const [query, setQuery] = useState('');
@@ -12,11 +13,11 @@ export default function Home() {
     // mock
     let cachedGames = MockResponse.data; // comment out for api
 
-    const searchGames = async (e: any) => {
+    const searchGames = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (query === '') {
-            alert("not funny, didn't laugh");
+            alert("Please enter a game name");
             return;
         }
 
@@ -35,7 +36,7 @@ export default function Home() {
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/records/');
+            const response = await fetch(GET_GAMES_ENDPOINT);
             const data = await response.json();
             const results = data.data;
             // console.log('cache miss');

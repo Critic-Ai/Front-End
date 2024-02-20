@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { WEBSOCKET_URL, PROMPT } from '../utils/constants';
 
 export default function GameView() {
     const location = useLocation();
@@ -25,9 +26,9 @@ export default function GameView() {
 
         setIsSubmitting(true);
 
-        const socket = new WebSocket('ws://127.0.0.1:2023/');
+        const socket = new WebSocket(WEBSOCKET_URL);
 
-        const payload = { "question": "how is the game?", "game": name, "filename": fileName };
+        const payload = { "question": PROMPT, "game": name, "filename": fileName };
         console.log(payload);
 
         // console.log(JSON.stringify(payload));
